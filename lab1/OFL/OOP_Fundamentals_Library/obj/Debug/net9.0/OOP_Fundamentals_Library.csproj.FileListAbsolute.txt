@@ -1,0 +1,12 @@
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\bin\Debug\net9.0\OOP_Fundamentals_Library.deps.json
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\bin\Debug\net9.0\OOP_Fundamentals_Library.dll
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\bin\Debug\net9.0\OOP_Fundamentals_Library.pdb
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\OOP_Fundamentals_Library.GeneratedMSBuildEditorConfig.editorconfig
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\OOP_Fundamentals_Library.AssemblyInfoInputs.cache
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\OOP_Fundamentals_Library.AssemblyInfo.cs
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\OOP_Fundamentals_Library.csproj.CoreCompileInputs.cache
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\OOP_Fundamentals_Library.sourcelink.json
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\OOP_Fundamentals_Library.dll
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\refint\OOP_Fundamentals_Library.dll
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\OOP_Fundamentals_Library.pdb
+G:\Git\CSharp\RPM-labs\lab1\OFL\OOP_Fundamentals_Library\obj\Debug\net9.0\ref\OOP_Fundamentals_Library.dll

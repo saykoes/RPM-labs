@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\Git\\CSharp\\RPM-labs\\lab1\\MainProgram\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ACBF8DA8-499C-4510-8DEA-389244BDA285}|ConsoleApp1\\ConsoleApp1.csproj|g:\\git\\csharp\\rpm-labs\\lab1\\mainprogram\\consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACBF8DA8-499C-4510-8DEA-389244BDA285}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F225AD2A-DA08-D2C0-0478-88B1B3884342}|..\\OFL\\OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|g:\\git\\csharp\\rpm-labs\\lab1\\ofl\\oop_fundamentals_library\\payrollsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F225AD2A-DA08-D2C0-0478-88B1B3884342}|..\\OFL\\OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|g:\\git\\csharp\\rpm-labs\\lab1\\ofl\\oop_fundamentals_library\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F225AD2A-DA08-D2C0-0478-88B1B3884342}|..\\OFL\\OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|g:\\git\\csharp\\rpm-labs\\lab1\\ofl\\oop_fundamentals_library\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F225AD2A-DA08-D2C0-0478-88B1B3884342}|..\\OFL\\OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|g:\\git\\csharp\\rpm-labs\\lab1\\ofl\\oop_fundamentals_library\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F225AD2A-DA08-D2C0-0478-88B1B3884342}|..\\OFL\\OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|g:\\git\\csharp\\rpm-labs\\lab1\\ofl\\oop_fundamentals_library\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReportService.cs",
+              "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\ReportService.cs",
+              "RelativeDocumentMoniker": "..\\OFL\\OOP_Fundamentals_Library\\ReportService.cs",
+              "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\ReportService.cs",
+              "RelativeToolTip": "..\\OFL\\OOP_Fundamentals_Library\\ReportService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T03:06:15.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PayrollSystem.cs",
+              "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\PayrollSystem.cs",
+              "RelativeDocumentMoniker": "..\\OFL\\OOP_Fundamentals_Library\\PayrollSystem.cs",
+              "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\PayrollSystem.cs",
+              "RelativeToolTip": "..\\OFL\\OOP_Fundamentals_Library\\PayrollSystem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T03:06:00.835Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Manager.cs",
+              "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\Manager.cs",
+              "RelativeDocumentMoniker": "..\\OFL\\OOP_Fundamentals_Library\\Manager.cs",
+              "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\Manager.cs",
+              "RelativeToolTip": "..\\OFL\\OOP_Fundamentals_Library\\Manager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T03:06:00.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\Employee.cs",
+              "RelativeDocumentMoniker": "..\\OFL\\OOP_Fundamentals_Library\\Employee.cs",
+              "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\Employee.cs",
+              "RelativeToolTip": "..\\OFL\\OOP_Fundamentals_Library\\Employee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T03:05:58.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\Customer.cs",
+              "RelativeDocumentMoniker": "..\\OFL\\OOP_Fundamentals_Library\\Customer.cs",
+              "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OFL\\OOP_Fundamentals_Library\\Customer.cs",
+              "RelativeToolTip": "..\\OFL\\OOP_Fundamentals_Library\\Customer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T03:05:53.442Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab1\\MainProgram\\ConsoleApp1\\Program.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Program.cs",
+              "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab1\\MainProgram\\ConsoleApp1\\Program.cs",
+              "RelativeToolTip": "ConsoleApp1\\Program.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T02:56:04.225Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

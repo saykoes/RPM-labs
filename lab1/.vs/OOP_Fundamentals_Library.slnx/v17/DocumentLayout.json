@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\Git\\CSharp\\RPM-labs\\lab1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{67208DB3-B283-5462-94CA-13EC0C01291D}|OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|g:\\git\\csharp\\rpm-labs\\lab1\\oop_fundamentals_library\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67208DB3-B283-5462-94CA-13EC0C01291D}|OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|solutionrelative:oop_fundamentals_library\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67208DB3-B283-5462-94CA-13EC0C01291D}|OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|g:\\git\\csharp\\rpm-labs\\lab1\\oop_fundamentals_library\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67208DB3-B283-5462-94CA-13EC0C01291D}|OOP_Fundamentals_Library\\OOP_Fundamentals_Library.csproj|solutionrelative:oop_fundamentals_library\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Manager.cs",
+              "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OOP_Fundamentals_Library\\Manager.cs",
+              "RelativeDocumentMoniker": "OOP_Fundamentals_Library\\Manager.cs",
+              "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OOP_Fundamentals_Library\\Manager.cs",
+              "RelativeToolTip": "OOP_Fundamentals_Library\\Manager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T02:50:35.818Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OOP_Fundamentals_Library\\Customer.cs",
+              "RelativeDocumentMoniker": "OOP_Fundamentals_Library\\Customer.cs",
+              "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab1\\OOP_Fundamentals_Library\\Customer.cs",
+              "RelativeToolTip": "OOP_Fundamentals_Library\\Customer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T02:50:22.917Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
