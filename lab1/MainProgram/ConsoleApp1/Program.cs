@@ -4,7 +4,6 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("aa");
         
         var customer = new Customer
         {
@@ -28,7 +27,7 @@ internal class Program
             Department = "IT"
         };
 
-        manager.Team.Add(employee);
+        manager.AddToTeam(employee);
 
         employee.Salary = 55000;
 
@@ -37,10 +36,14 @@ internal class Program
         manager.PrintInfo();
 
         var payroll = new PayrollSystem();
+
         payroll.ProcessSalary(employee);
         payroll.ProcessSalary(manager);
 
-        ReportService.GenerateEmployeeReport(employee);
-        ReportService.GenerateManagerReport(manager);
+        var report = new ReportService();
+
+        report.GenerateReport(employee);
+        report.GenerateReport(manager);
+
     }
 }

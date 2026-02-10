@@ -1,49 +1,31 @@
-﻿namespace OOP_Fundamentals_Library
+﻿using System.Xml.Linq;
+
+namespace OOP_Fundamentals_Library
 {
     public class PayrollSystem
     {
-        public void ProcessSalary(object employee)
+        public void ProcessSalary(CompanyPerson emp)
         {
-            if (employee is Employee emp)
-            {
-                Console.WriteLine($"Processing salary for employee {emp.Name}: {emp.Salary}");
-                emp.Salary += 1000;
-            }
-            else if (employee is Manager mgr)
-            {
-                Console.WriteLine($"Processing salary for manager {mgr.Name}: {mgr.Salary}");
-                mgr.Salary += 2000;
-            }
-            else
-            {
-                throw new ArgumentException("Unknown employee type");
-            }
+            Console.WriteLine($"Processing salary for {GetType().Name} {emp.Name}: {emp.Salary}");
+            emp.Salary += emp.SalaryIncrease;
         }
 
-        public decimal CalculateBonus(string employeeType, decimal baseSalary, int years, bool hasCertification)
+        public decimal CalculateBonus(CompanyPerson emp)
         {
-            decimal bonus = 0;
+            decimal bonus = emp.Salary * emp.BonusMultiplier;
 
-            if (employeeType == "Employee")
-            {
-                bonus = baseSalary * 0.1m;
-            }
-            else if (employeeType == "Manager")
-            {
-                bonus = baseSalary * 0.2m;
-            }
-
-            if (years > 5)
-            {
+            if (emp.Years > 5)
                 bonus += 500;
-            }
 
-            if (hasCertification)
-            {
+            if (emp.HasCertification)
                 bonus += 300;
-            }
 
             return bonus;
+        }
+
+        public void ProcessPayroll(Employee emp)
+        {
+            Console.WriteLine($"Processing payroll for {emp.Name}: {emp.Salary}");
         }
     }
 }

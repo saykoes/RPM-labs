@@ -6,6 +6,7 @@
         /// СКОПИРУЙТЕ ЕГО В МЕТОД MAIN ОСНОВОГО ПРОЕКТА ДЛЯ ПРОВЕРКИ РАБОТЫ
         static void Main(string[] args)
         {
+
             var customer = new Customer
             {
                 Name = "John",
@@ -28,7 +29,7 @@
                 Department = "IT"
             };
 
-            manager.Team.Add(employee);
+            manager.AddToTeam(employee);
 
             employee.Salary = 55000;
 
@@ -37,11 +38,15 @@
             manager.PrintInfo();
 
             var payroll = new PayrollSystem();
+
             payroll.ProcessSalary(employee);
             payroll.ProcessSalary(manager);
 
-            ReportService.GenerateEmployeeReport(employee);
-            ReportService.GenerateManagerReport(manager);
+            var report = new ReportService();
+
+            report.GenerateReport(employee);
+            report.GenerateReport(manager);
+
         }
     }
 }
