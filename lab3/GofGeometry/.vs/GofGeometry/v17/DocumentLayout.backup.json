@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|g:\\git\\csharp\\rpm-labs\\lab3\\gofgeometry\\wpfapp\\igeofactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|solutionrelative:wpfapp\\igeofactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|g:\\git\\csharp\\rpm-labs\\lab3\\gofgeometry\\wpfapp\\creators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|solutionrelative:wpfapp\\creators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|g:\\git\\csharp\\rpm-labs\\lab3\\gofgeometry\\wpfapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|solutionrelative:wpfapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|g:\\git\\csharp\\rpm-labs\\lab3\\gofgeometry\\wpfapp\\figures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|solutionrelative:wpfapp\\figures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|g:\\git\\csharp\\rpm-labs\\lab3\\gofgeometry\\wpfapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|solutionrelative:wpfapp\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|g:\\git\\csharp\\rpm-labs\\lab3\\gofgeometry\\wpfapp\\igeofactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|solutionrelative:wpfapp\\igeofactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|g:\\git\\csharp\\rpm-labs\\lab3\\gofgeometry\\wpfapp\\creators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|solutionrelative:wpfapp\\creators.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0215EAD8-32FC-4A78-954E-97F0FD0BD06E}|WpfApp\\WpfApp.csproj|g:\\git\\csharp\\rpm-labs\\lab3\\gofgeometry\\wpfapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -34,21 +34,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Figures.cs",
               "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\WpfApp\\Figures.cs",
               "RelativeDocumentMoniker": "WpfApp\\Figures.cs",
               "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\WpfApp\\Figures.cs",
               "RelativeToolTip": "WpfApp\\Figures.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-26T04:13:36.843Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -56,16 +55,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "IGeoFactory.cs",
               "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\WpfApp\\IGeoFactory.cs",
               "RelativeDocumentMoniker": "WpfApp\\IGeoFactory.cs",
               "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\WpfApp\\IGeoFactory.cs",
               "RelativeToolTip": "WpfApp\\IGeoFactory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAABCAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAA3wDcAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T05:10:12.387Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T05:10:12.387Z"
             },
             {
               "$type": "Document",
@@ -81,13 +79,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\WpfApp\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "WpfApp\\MainWindow.xaml.cs",
               "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\WpfApp\\MainWindow.xaml.cs",
               "RelativeToolTip": "WpfApp\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAYwDYAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-25T16:24:25.265Z",
               "EditorCaption": ""
@@ -105,7 +103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Creators.cs",
               "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\WpfApp\\Creators.cs",
               "RelativeDocumentMoniker": "WpfApp\\Creators.cs",
@@ -113,8 +111,7 @@
               "RelativeToolTip": "WpfApp\\Creators.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAuwBUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T04:30:51.052Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T04:30:51.052Z"
             }
           ]
         }

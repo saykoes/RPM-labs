@@ -3,13 +3,13 @@
   "WorkspaceRootPath": "G:\\Git\\CSharp\\RPM-labs\\lab2\\MainProgram2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7CF64CFC-45FE-7035-CB18-F109D3DD1547}|..\\SOLID_Fundamentals\\SOLID_Fundamentals.csproj|g:\\git\\csharp\\rpm-labs\\lab2\\solid_fundamentals\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7CF64CFC-45FE-7035-CB18-F109D3DD1547}|..\\SOLID_Fundamentals\\SOLID_Fundamentals.csproj|g:\\git\\csharp\\rpm-labs\\lab2\\solid_fundamentals\\paymentmethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7CF64CFC-45FE-7035-CB18-F109D3DD1547}|..\\SOLID_Fundamentals\\SOLID_Fundamentals.csproj|g:\\git\\csharp\\rpm-labs\\lab2\\solid_fundamentals\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CF64CFC-45FE-7035-CB18-F109D3DD1547}|..\\SOLID_Fundamentals\\SOLID_Fundamentals.csproj|g:\\git\\csharp\\rpm-labs\\lab2\\solid_fundamentals\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7CF64CFC-45FE-7035-CB18-F109D3DD1547}|..\\SOLID_Fundamentals\\SOLID_Fundamentals.csproj|g:\\git\\csharp\\rpm-labs\\lab2\\solid_fundamentals\\accounts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -44,8 +44,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 10,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -56,12 +60,11 @@
               "RelativeToolTip": "..\\SOLID_Fundamentals\\Accounts.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAxwEIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T09:15:11.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T09:15:11.799Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PaymentMethods.cs",
               "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab2\\SOLID_Fundamentals\\PaymentMethods.cs",
               "RelativeDocumentMoniker": "..\\SOLID_Fundamentals\\PaymentMethods.cs",
@@ -74,7 +77,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Customer.cs",
               "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab2\\SOLID_Fundamentals\\Customer.cs",
               "RelativeDocumentMoniker": "..\\SOLID_Fundamentals\\Customer.cs",
@@ -82,8 +85,7 @@
               "RelativeToolTip": "..\\SOLID_Fundamentals\\Customer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T09:09:01.312Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T09:09:01.312Z"
             },
             {
               "$type": "Document",
@@ -95,8 +97,7 @@
               "RelativeToolTip": "..\\SOLID_Fundamentals\\ShippingCalculator.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T07:43:40.214Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T07:43:40.214Z"
             },
             {
               "$type": "Document",
@@ -108,8 +109,7 @@
               "RelativeToolTip": "..\\SOLID_Fundamentals\\Services.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T06:11:50.534Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T06:11:50.534Z"
             },
             {
               "$type": "Document",
@@ -121,8 +121,7 @@
               "RelativeToolTip": "..\\SOLID_Fundamentals\\OrderProcessor.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAxwDEAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T06:03:52.164Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T06:03:52.164Z"
             },
             {
               "$type": "Document",
@@ -134,8 +133,7 @@
               "RelativeToolTip": "..\\SOLID_Fundamentals\\OrderOperations.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAUwBgAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T05:59:37.883Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T05:59:37.883Z"
             },
             {
               "$type": "Document",
@@ -147,8 +145,7 @@
               "RelativeToolTip": "..\\SOLID_Fundamentals\\Order.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T05:49:23.895Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T05:49:23.895Z"
             },
             {
               "$type": "Document",
@@ -160,12 +157,11 @@
               "RelativeToolTip": "..\\SOLID_Fundamentals\\DiscountCalculator.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T05:49:24.083Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T05:49:24.083Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Bank.cs",
               "DocumentMoniker": "G:\\Git\\CSharp\\RPM-labs\\lab2\\SOLID_Fundamentals\\Bank.cs",
               "RelativeDocumentMoniker": "..\\SOLID_Fundamentals\\Bank.cs",

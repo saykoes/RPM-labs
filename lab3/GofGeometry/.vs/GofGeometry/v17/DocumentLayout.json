@@ -47,8 +47,7 @@
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-26T04:13:36.843Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "WpfApp\\IGeoFactory.cs",
               "ViewState": "AgIAACkAAAAAAAAAAAA3wDcAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T05:10:12.387Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T05:10:12.387Z"
             },
             {
               "$type": "Document",
@@ -87,7 +85,7 @@
               "RelativeDocumentMoniker": "WpfApp\\MainWindow.xaml.cs",
               "ToolTip": "G:\\Git\\CSharp\\RPM-labs\\lab3\\GofGeometry\\WpfApp\\MainWindow.xaml.cs",
               "RelativeToolTip": "WpfApp\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-25T16:24:25.265Z",
               "EditorCaption": ""
@@ -113,8 +111,7 @@
               "RelativeToolTip": "WpfApp\\Creators.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAuwBUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T04:30:51.052Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T04:30:51.052Z"
             }
           ]
         }
