@@ -15,14 +15,9 @@ namespace WpfApp
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-
-
-
     public partial class MainWindow : Window
     {
-        private CircleCreator _currentCircleCreator;
-        private SquareCreator _currentSquareCreator;
-        private TriangleCreator _currentTriangleCreator;
+        private IGeoFactory _currentFactory;
 
         public MainWindow()
         {
@@ -36,45 +31,31 @@ namespace WpfApp
             {
                 // Red
                 case 0:
-                    _currentCircleCreator = new RedCircleCreator();
-                    _currentSquareCreator = new RedSquareCreator();
-                    _currentTriangleCreator = new RedTriangleCreator();
+                    _currentFactory = new RedFactory();
                     break;
                 // Green
                 case 1:
-                    _currentCircleCreator = new GreenCircleCreator();
-                    _currentSquareCreator = new GreenSquareCreator();
-                    _currentTriangleCreator = new GreenTriangleCreator();
+                    _currentFactory = new GreenFactory();
                     break;
                 // Blue
                 case 2:
-                    _currentCircleCreator = new BlueCircleCreator();
-                    _currentSquareCreator = new BlueSquareCreator();
-                    _currentTriangleCreator = new BlueTriangleCreator();
+                    _currentFactory = new BlueFactory();
                     break;
                 // Cyan
                 case 3:
-                    _currentCircleCreator = new CyanCircleCreator();
-                    _currentSquareCreator = new CyanSquareCreator();
-                    _currentTriangleCreator = new CyanTriangleCreator();
+                    _currentFactory = new CyanFactory();
                     break;
                 // Magenta
                 case 4:
-                    _currentCircleCreator = new MagentaCircleCreator();
-                    _currentSquareCreator = new MagentaSquareCreator();
-                    _currentTriangleCreator = new MagentaTriangleCreator();
+                    _currentFactory = new MagentaFactory();
                     break;
                 // Yellow
                 case 5:
-                    _currentCircleCreator = new YellowCircleCreator();
-                    _currentSquareCreator = new YellowSquareCreator();
-                    _currentTriangleCreator = new YellowTriangleCreator();
+                    _currentFactory = new YellowFactory();
                     break;
                 // blacK
                 case 6:
-                    _currentCircleCreator = new BlackCircleCreator();
-                    _currentSquareCreator = new BlackSquareCreator();
-                    _currentTriangleCreator = new BlackTriangleCreator();
+                    _currentFactory = new BlackFactory();
                     break;
                 default:
                     return;
@@ -82,9 +63,9 @@ namespace WpfApp
 
             FiguresPanel.Children.Clear();
 
-            FiguresPanel.Children.Add(_currentCircleCreator.CreateCircle().CreateUIElement());
-            FiguresPanel.Children.Add(_currentSquareCreator.CreateSquare().CreateUIElement());
-            FiguresPanel.Children.Add(_currentTriangleCreator.CreateTriangle().CreateUIElement());
+            FiguresPanel.Children.Add(_currentFactory.CreateCircle().CreateUIElement());
+            FiguresPanel.Children.Add(_currentFactory.CreateSquare().CreateUIElement());
+            FiguresPanel.Children.Add(_currentFactory.CreateTriangle().CreateUIElement());
         }
         
 
