@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="GoF Geometry" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50px"/>
+        </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="0" x:Name="FiguresPanel" Orientation="Horizontal" HorizontalAlignment="Center"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+            <Label Content="Color:" VerticalAlignment="Center" />
+            <ComboBox x:Name="ColorComboBox" Width="120" SelectionChanged="ComboBox_SelectionChanged" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                <ComboBoxItem Content="Red" IsSelected="True"/>
+                <ComboBoxItem Content="Green"/>
+                <ComboBoxItem Content="Blue"/>
+                <ComboBoxItem Content="Cyan"/>
+                <ComboBoxItem Content="Magenta"/>
+                <ComboBoxItem Content="Yellow"/>
+                <ComboBoxItem Content="blacK"/>
+            </ComboBox>
+        </StackPanel>
     </Grid>
 </Window>
