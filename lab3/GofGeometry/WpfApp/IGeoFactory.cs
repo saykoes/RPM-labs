@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace WpfApp
 {
-    internal interface IGeoFactory
+    public interface IGeoFactory
     {
         Circle CreateCircle();
         Square CreateSquare();

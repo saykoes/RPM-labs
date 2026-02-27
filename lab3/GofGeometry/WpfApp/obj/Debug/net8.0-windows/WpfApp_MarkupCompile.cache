@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-G:\Git\CSharp\RPM-labs\lab3\GofGeometry\WpfApp\obj\Debug\net8.0-windows\
+Z:\Code\CS\RPM-labs\lab3\GofGeometry\WpfApp\obj\Debug\net8.0-windows\
 WpfApp
 none
 false
-TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-G:\Git\CSharp\RPM-labs\lab3\GofGeometry\WpfApp\App.xaml
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+Z:\Code\CS\RPM-labs\lab3\GofGeometry\WpfApp\App.xaml
 11407045341
 
-71537824194
-198-1831388575
+8-778822312
+199-1171904123
 MainWindow.xaml;
 
 False

@@ -6,25 +6,31 @@
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Title="GoF Geometry" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50px"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" x:Name="FiguresPanel" Orientation="Horizontal" HorizontalAlignment="Center"/>
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding Figures}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
             <Label Content="Color:" VerticalAlignment="Center" />
-            <ComboBox x:Name="ColorComboBox" Width="120" SelectionChanged="ComboBox_SelectionChanged" VerticalAlignment="Center" HorizontalContentAlignment="Center">
-                <ComboBoxItem Content="Red" IsSelected="True"/>
-                <ComboBoxItem Content="Green"/>
-                <ComboBoxItem Content="Blue"/>
-                <ComboBoxItem Content="Cyan"/>
-                <ComboBoxItem Content="Magenta"/>
-                <ComboBoxItem Content="Yellow"/>
-                <ComboBoxItem Content="blacK"/>
-            </ComboBox>
+            <ComboBox Width="120" 
+                  VerticalAlignment="Center" 
+                  HorizontalContentAlignment="Center"
+                  ItemsSource="{Binding ColorOptions}"
+                  SelectedItem="{Binding SelectedColor}"
+                  DisplayMemberPath="Label" />
         </StackPanel>
     </Grid>
 </Window>
