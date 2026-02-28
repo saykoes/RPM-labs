@@ -224,7 +224,7 @@ private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs 
 
 **MainWindow (XAML)**
 
-Nothing really interesting
+Nothing really interesting. Just basic XAML UI
 ```xml
 <Grid>
     <Grid.RowDefinitions>
@@ -270,6 +270,7 @@ Also, there is a ton of repetitive code... Yuck!
 &nbsp;
 ![Abstract Factory Method Diagram](AbstractFactoryMethod.drawio.svg)
 &nbsp;
+
 Instead of figure factory we now have factories for each color and an `IGeoFactory` interface that requires each color factory to implement every figure
 ### Practice
 
@@ -361,14 +362,14 @@ switch (ColorComboBox.SelectedIndex)
 }
 ```
 
-I don't like it. In order to add new colors you have to modify the UI code (which can be ignored since it isn't the backend)
+I don't like this because it violates the Open-Closed Principle: adding new colors requires you to modify the UI code (which can be ignored since it isn't the backend, but for the sake of self-learning and as a challenge I've decided to try implementing it differently)
 
-But then, I remembered how I did menu selection in [my previous project using Avalonia.UI](https://github.com/saykoes/JPDA/blob/main/JPDA/ViewModels/MainViewModel.cs)
-Let's see **that project's code** briefly to get the underlying idea
+I remembered how I did dynamic navigation in [my previous project using Avalonia.UI](https://github.com/saykoes/JPDA/blob/main/JPDA/ViewModels/MainViewModel.cs).
+Let's see **that project's code** briefly to get the _underlying idea_
 
-Instead of using `ListItem` in the `ListBox` and then checking selected `ListItem` to know what ViewModel to call, let's make `ListBox` use our array of our own type/class directly and just create ViewModel instance of the selected `ListItem`
+> Instead of using `ListItem` in a `ListBox` directly and relying on index-based selection to know what ViewModel to call, I've made a data-driven approach where the UI binds directly to a collection of objects containing both data for `ListBox` and ViewModel type it corresponds to. Then, just instantiate ViewModel of selected `ListItem` when selection is changed
 
-I've declared new class for item in the list (to include name,icon and viewmodel)
+I've introduced a `ListItemTemplate` class to store data for menu items (Label, Icon, and ViewModel type).
 ```csharp
 public class ListItemTemplate(Type type, string? title, StreamGeometry? icon)
 {
@@ -377,7 +378,7 @@ public class ListItemTemplate(Type type, string? title, StreamGeometry? icon)
     public StreamGeometry? ListItemIcon { get; } = icon;
 }
 ```
-Declared `ObservableCollection` (to be used as a `ItemSource` in `ListBox` in the View) 
+Created `ObservableCollection` (to be used as a `ItemSource` in the `ListBox` in the View) 
 ```csharp
 public static ObservableCollection<ListItemTemplate> MenuItems { get; } =
 [
@@ -391,7 +392,8 @@ Declared item that is selected in the `ListBox`
 [ObservableProperty] 
 private static ListItemTemplate? _selectedListItem;
 ```
-Redefined automatically generated method (from`[ObservableProperty]` from `CommunityToolkit.MVVM`) to create instance of ViewModel of selected item 
+Used automatically generated method from`[ObservableProperty]` (from `CommunityToolkit.MVVM`).
+Navigation is handled dynamically by instantiating the item's ViewModel type using `Activator.CreateInstance` upon selection change
 ```csharp
 partial void OnSelectedListItemChanged(ListItemTemplate? value)
 {
@@ -406,19 +408,19 @@ partial void OnSelectedListItemChanged(ListItemTemplate? value)
 Let's get back to **this project**
 
 Now, we have a very distinct difference in project structure: We don't have a base class for all factories. 
-I could change the code, but I didn't want to touch the backend at all. Moreover, explicit interface contracts are much more readable and flexible than implicit inheritance from base class
+I don't want to change the backend code at all. Moreover using explicit interface contracts (`IGeoFactory`) provides better flexibility and decoupling than a rigid base class inheritance
 
 Instead of using `ComboBoxItem` in the `ComboBox` and then checking selected `ComboBoxItem.SelectedIndex` to know what factory to call, let's make `ComboBox` use our array of our own type/class directly and just call factory instance of the selected `ComboBoxItem`
 
 I've switched to MVVM. It will increase code independance from the app and also make everything "in one place"
 
-I've declared `ColorOption` `record` instead of class (like in that project's code) (record provieds less code, immutability, etc.)
+I used a `record` for `ColorOption` (record provides immutability, makes you type less code, etc.)
 ```csharp
 public record ColorOption(IGeoFactory Factory, string Label);
 ```
-Now we have a problem. To put our factory in `ColorOption` we need to create an instance of it
+Now we have a problem: to put our factory in `ColorOption` we need to create an instance of it
 
-Let's use reflection, check what factories we have in the code and create and array of factory instances
+Let's use reflection, automatically discover what `IGeoFactory` implementations we have in the code, and create a `List` of factory instances.
 I've declared separate class for providing factories
 ```csharp
 internal class GeoFactoryProvider
@@ -442,11 +444,11 @@ private ColorOption? _selectedColor;
 ```csharp
 partial void OnSelectedColorChanged(ColorOption? value) => UpdateFigures();
 ```
-Used Constructor Chaining to so that the View doesn't have to include arguments to call the ViewModel
+Used Constructor Chaining to have compatibility with XAML's default ViewModel instantiation
 ```csharp
 public MainViewModel() : this(GeoFactoryProvider.GetFactories()) { }
 ```
-Let's create our `ObservableCollection` for ItemSource. Used reflection to get names for colors
+Let's create `ObservableCollection` for ItemSource. Used reflection to get names for colors
 ```csharp
 public MainViewModel(IEnumerable<IGeoFactory> factories)
 {
@@ -503,4 +505,4 @@ Set ItemSource and SelectedItem in ComboBox color selector
 ```
 
 ### Result
-And now we are able to add new colors by just declaring new factory without ever touching even the UI code (all what's needed is an IGeoFactory interaface implementation)
+Adding a new color is now as simple as implementing a new `IGeoFactory`. The UI and the ViewModel will discover and integrate the new color automatically
