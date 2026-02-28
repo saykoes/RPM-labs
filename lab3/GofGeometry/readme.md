@@ -44,7 +44,7 @@ Here we can see that there are 3 different creators for each shape. Creators del
 ### Practice
 Created classes for figures (they are the same as in the example)
 
-```cs
+```csharp
 public abstract class Figure
 {
     public Color Color { get; set; }
@@ -52,7 +52,7 @@ public abstract class Figure
 }
 ```
 
-```cs
+```csharp
 public class Circle : Figure
 {
     public override UIElement CreateUIElement(double size = 105) => new Ellipse
@@ -65,7 +65,7 @@ public class Circle : Figure
 }
 ```
 
-```cs
+```csharp
 public class Square : Figure
 {
     public override UIElement CreateUIElement(double size = 100) => new Rectangle
@@ -78,7 +78,7 @@ public class Square : Figure
 }
 ```
 
-```cs
+```csharp
 public class Triangle : Figure
 {
     public override UIElement CreateUIElement(double size = 100) => new Polygon
@@ -99,13 +99,13 @@ public class Triangle : Figure
 ```
 Made `CircleCreator` but added more colors
 
-```cs
+```csharp
 public abstract class CircleCreator
 {
     public abstract Circle CreateCircle();
 }
 ```
-```cs
+```csharp
 public class RedCircleCreator : CircleCreator
 {
     public override Circle CreateCircle() => new Circle { Color = Colors.Red };
@@ -137,13 +137,13 @@ public class BlackCircleCreator : CircleCreator
 ```
 Same with `SquareCreator`
 
-```cs
+```csharp
 public abstract class SquareCreator
 {
     public abstract Square CreateSquare();
 }
 ```
-```cs
+```csharp
 public class RedSquareCreator : SquareCreator
 {
     public override Square CreateSquare() => new Square { Color = Colors.Red };
@@ -152,13 +152,13 @@ public class RedSquareCreator : SquareCreator
 ```
 And `TriangleCreator`
 
-```cs
+```csharp
 public abstract class TriangleCreator
 {
     public abstract Triangle CreateTriangle();
 }
 ```
-```cs
+```csharp
 public class RedTriangleCreator : TriangleCreator
 {
     public override Triangle CreateTriangle() => new Triangle { Color = Colors.Red };
@@ -170,14 +170,14 @@ public class RedTriangleCreator : TriangleCreator
 **MainWindow (CS)**
 
 Declared each creator
-```cs
+```csharp
 private CircleCreator _currentCircleCreator;
 private SquareCreator _currentSquareCreator;
 private TriangleCreator _currentTriangleCreator;
 ```
 
 Added `FiguresUpdate()` Method (changed switch condition from `Content.ToString()` to `SelectedIndex`)
-```cs
+```csharp
 private void FiguresUpdate()
 {
     switch (ColorComboBox.SelectedIndex)
@@ -207,7 +207,7 @@ private void FiguresUpdate()
 }
 ```
 Called `FiguresUpdate()` on init
-```cs
+```csharp
 public MainWindow()
 {
     InitializeComponent();
@@ -215,7 +215,7 @@ public MainWindow()
 }
 ```
 ...and on `ComboBox_SelectionChanged`
-```cs
+```csharp
 private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 {
     FiguresUpdate();
@@ -274,7 +274,7 @@ Instead of figure factory we now have factories for each color and an `IGeoFacto
 ### Practice
 
 `IGeoFactory` interface
-```cs
+```csharp
 internal interface IGeoFactory
 {
     Circle CreateCircle();
@@ -283,7 +283,7 @@ internal interface IGeoFactory
 }
 ```
 Factories with `IGeoFactory` implementation
-```cs
+```csharp
 public class RedFactory : IGeoFactory
 {
     public Circle CreateCircle() => new Circle { Color = Colors.Red };
@@ -302,11 +302,11 @@ public class GreenFactory : IGeoFactory
 **MainWindow (CS)**
 
 Now we have one `_currentFactory` for all shapes
-```cs
+```csharp
 private IGeoFactory _currentFactory;
 ```
 And `UpdateFigures()` that now works with `_currentFactory`
-```cs
+```csharp
 private void FiguresUpdate()
 {
     switch (ColorComboBox.SelectedIndex)
@@ -342,9 +342,9 @@ Code is now less repetitive
 ---
 
 ## Bonus: MVVM, SOLID and App Independant code
-
+### Theory
 In FiguresUpdate() there is this long switch statement
-```cs
+```csharpharp
 switch (ColorComboBox.SelectedIndex)
 {
     // Red
@@ -369,7 +369,7 @@ Let's see **that project's code** briefly to get the underlying idea
 Instead of using `ListItem` in the `ListBox` and then checking selected `ListItem` to know what ViewModel to call, let's make `ListBox` use our array of our own type/class directly and just create ViewModel instance of the selected `ListItem`
 
 I've declared new class for item in the list (to include name,icon and viewmodel)
-```cs
+```csharp
 public class ListItemTemplate(Type type, string? title, StreamGeometry? icon)
 {
     public string? Label { get; set; } = title;
@@ -378,7 +378,7 @@ public class ListItemTemplate(Type type, string? title, StreamGeometry? icon)
 }
 ```
 Declared `ObservableCollection` (to be used as a `ItemSource` in `ListBox` in the View) 
-```cs
+```csharp
 public static ObservableCollection<ListItemTemplate> MenuItems { get; } =
 [
     new ListItemTemplate(typeof(KanjiViewModel), GetUiString("ui_menu_kanji_input"), GetIcon("EditRegular")),
@@ -387,12 +387,12 @@ public static ObservableCollection<ListItemTemplate> MenuItems { get; } =
 ];
 ```
 Declared item that is selected in the `ListBox`
-```cs
+```csharp
 [ObservableProperty] 
 private static ListItemTemplate? _selectedListItem;
 ```
 Redefined automatically generated method (from`[ObservableProperty]` from `CommunityToolkit.MVVM`) to create instance of ViewModel of selected item 
-```cs
+```csharp
 partial void OnSelectedListItemChanged(ListItemTemplate? value)
 {
     if (value is null) return;
@@ -402,7 +402,7 @@ partial void OnSelectedListItemChanged(ListItemTemplate? value)
     IsMenuPaneOpen = false;
 }
 ```
-
+### Practice
 Let's get back to **this project**
 
 Now, we have a very distinct difference in project structure: We don't have a base class for all factories. 
@@ -413,14 +413,14 @@ Instead of using `ComboBoxItem` in the `ComboBox` and then checking selected `Co
 I've switched to MVVM. It will increase code independance from the app and also make everything "in one place"
 
 I've declared `ColorOption` `record` instead of class (like in that project's code) (record provieds less code, immutability, etc.)
-```cs
+```csharp
 public record ColorOption(IGeoFactory Factory, string Label);
 ```
 Now we have a problem. To put our factory in `ColorOption` we need to create an instance of it
 
 Let's use reflection, check what factories we have in the code and create and array of factory instances
 I've declared separate class for providing factories
-```cs
+```csharp
 internal class GeoFactoryProvider
 {
     private static readonly List<IGeoFactory> _instances;
@@ -435,19 +435,19 @@ internal class GeoFactoryProvider
 }
 ```
 Declared selected item color as an `[ObservableProperty]` and used the trick from previous project
-```cs
+```csharp
 [ObservableProperty]
 private ColorOption? _selectedColor;
 ```
-```cs
+```csharp
 partial void OnSelectedColorChanged(ColorOption? value) => UpdateFigures();
 ```
 Used Constructor Chaining to so that the View doesn't have to include arguments to call the ViewModel
-```cs
+```csharp
 public MainViewModel() : this(GeoFactoryProvider.GetFactories()) { }
 ```
 Let's create our `ObservableCollection` for ItemSource. Used reflection to get names for colors
-```cs
+```csharp
 public MainViewModel(IEnumerable<IGeoFactory> factories)
 {
     var options = factories.Select(f => new ColorOption(f, f.GetType().Name.Replace("Factory", "")));
@@ -456,10 +456,10 @@ public MainViewModel(IEnumerable<IGeoFactory> factories)
 }
 ```
 And let's create figures with `SelectedItem`'s factory
-```cs
+```csharp
 public ObservableCollection<UIElement> Figures { get; } = new();
 ```
-```cs
+```csharp
 private void UpdateFigures()
 {
     Figures.Clear();
