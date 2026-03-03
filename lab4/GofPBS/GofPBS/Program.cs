@@ -4,6 +4,18 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        IComputerFactory officeFactory = new OfficeComputerFactory();
+        Computer officeComp = officeFactory.CreateComputer();
+        officeComp.Display();
+
+        IComputerFactory proFactory = new ProComputerFactory();
+        Computer proComp = proFactory.CreateComputer();
+        proComp.Display();
+
+        IComputerFactory macFactory = new MacMiniComputerFactory();
+        Computer macComp = macFactory.CreateComputer();
+        macComp.Display();
+
         Computer customComputer = new ComputerBuilder()
         .WithCPU("AMD Ryzen 7 7800X3D")
         .WithRAM(32)
