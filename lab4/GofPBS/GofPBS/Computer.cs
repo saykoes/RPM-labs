@@ -22,5 +22,18 @@ namespace GofPBS
             Console.WriteLine($"Add. Components: {(AdditionalComponents.Count > 0 ? string.Join(", ", AdditionalComponents) : "none")}");
             Console.WriteLine("=======================");
         }
+
+        public Computer ShallowCopy()
+        {
+            return (Computer)MemberwiseClone();
+        }
+
+        public Computer DeepCopy()
+        {
+            Computer clone = (Computer)MemberwiseClone();
+            if (AdditionalComponents is not null)
+                clone.AdditionalComponents = new List<string>(this.AdditionalComponents);
+            return clone;
+        }
     }
 }

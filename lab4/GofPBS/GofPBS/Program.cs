@@ -6,11 +6,21 @@ internal class Program
     {
         IComputerFactory officeFactory = new OfficeComputerFactory();
         Computer officeComp = officeFactory.CreateComputer();
+
+        Computer officeComp2 = officeComp.ShallowCopy();
+        officeComp2.AdditionalComponents.Add("thing only for shallow comp2");
+
         officeComp.Display();
+        officeComp2.Display();
 
         IComputerFactory proFactory = new ProComputerFactory();
         Computer proComp = proFactory.CreateComputer();
+        
+        Computer proComp2 = proComp.DeepCopy();
+        proComp2.AdditionalComponents.Add("thing only for deep comp2");
+
         proComp.Display();
+        proComp2.Display();
 
         IComputerFactory macFactory = new MacMiniComputerFactory();
         Computer macComp = macFactory.CreateComputer();
@@ -23,6 +33,8 @@ internal class Program
         .WithComponent("MSI Motherboard")
         .WithComponent("10G Ethernet PCIe 3.0 x8 card")
         .Build();
+
+
 
          customComputer.Display();
     }
