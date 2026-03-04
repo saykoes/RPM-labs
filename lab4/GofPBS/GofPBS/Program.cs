@@ -34,8 +34,18 @@ internal class Program
         .WithComponent("10G Ethernet PCIe 3.0 x8 card")
         .Build();
 
+        customComputer.Display();
 
+        PrototypeRegistry prot = PrototypeRegistry.Instance;
+        Computer officePc1 = prot.GetPrototype("office");
+        officePc1.RAM = 12;
+        officePc1.AdditionalComponents.Add("thing for only comp1 proto");
+        Computer officePc2 = prot.GetPrototype("office");
 
-         customComputer.Display();
+        officePc1.Display();
+        officePc2.Display();
+
+        PrototypeRegistry prot2 = PrototypeRegistry.Instance;
+        Console.WriteLine(ReferenceEquals(prot, prot2));
     }
 }
