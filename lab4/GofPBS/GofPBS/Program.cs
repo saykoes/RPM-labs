@@ -8,6 +8,7 @@ internal class Program
         Computer officeComp = officeFactory.CreateComputer();
 
         Computer officeComp2 = officeComp.ShallowCopy();
+        officeComp2.CPU = "Intel Core i5 8400";
         officeComp2.AdditionalComponents.Add("thing only for shallow comp2");
 
         officeComp.Display();
