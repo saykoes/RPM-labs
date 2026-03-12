@@ -24,13 +24,11 @@ namespace GofCAF.Models
 
     public class File : FileSystemItem
     {
-        protected long _size;
-        public override long Size => _size;
+        public override long Size => Data?.Length ?? 0;
 
-        public File(long size, string name) : base(name)
-        {
-            _size = size;
-        }
+        public byte[]? Data;
+
+        public File(string name) : base(name) { }
 
         public override void Add(FileSystemItem item)
         {
@@ -50,33 +48,35 @@ namespace GofCAF.Models
 
     public class Folder : FileSystemItem
     {
-        protected readonly List<FileSystemItem> Children;
+        protected readonly List<FileSystemItem> _children;
+
+        public IReadOnlyList<FileSystemItem> Children => _children.AsReadOnly();
 
         public Folder(string name) : base(name)
         {
-            this.Children = new List<FileSystemItem>();
+            this._children = new List<FileSystemItem>();
         }
 
-        public override long Size => Children.Sum(c => c.Size);
+        public override long Size => _children.Sum(c => c.Size);
 
         public override void Add(FileSystemItem item)
         {
-            if (Children.Any(i => i.Name == item.Name))
+            if (_children.Any(i => i.Name == item.Name))
                 throw new InvalidOperationException("Item with this name already exists");
 
-            Children.Add(item);
+            _children.Add(item);
         }
 
         public override void Remove(FileSystemItem item)
         {
-            if (!Children.Contains(item))
+            if (!_children.Contains(item))
                 throw new InvalidOperationException("File not found");
             
-            Children.Remove(item);
+            _children.Remove(item);
         }
 
         public override FileSystemItem? GetChild(int index) =>
-            Children.ElementAtOrDefault(index);
+            _children.ElementAtOrDefault(index);
     }
 
 
