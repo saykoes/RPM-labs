@@ -34,6 +34,13 @@ internal class Program
 
         myFolder.Add(new GofFile("test"));
 
+        //TryExecute(() => yabaiFolder.Add(new Folder("my")));
+        //TryExecute(() => myFolder.Add(new GofFile("test")));
+        //TryExecute(() => yabaiFile.Add(new GofFile("test")));
+
+        //TryExecute(() => myFolder.Remove(myFolder.Children.FirstOrDefault()));
+        //TryExecute(() => myFolder.Remove(myFolder.Children.FirstOrDefault()));
+
         // --- Filesystem Adapter ---
 
         IFileSystem localStorage = new FileSystemAdapter(root);
@@ -92,6 +99,13 @@ internal class Program
 
         TryExecute(() => ShowList(localStorage, "/"));
 
+
+        //Console.Write($"\nDeleting {myPath}:");
+        //TryExecute(() => localStorage.DeleteItem(myPath));
+        //Console.WriteLine($"\tSuccess!");
+
+        //TryExecute(() => ShowList(localStorage, "/"));
+
         // --- Backup ---
 
         Folder cloudRoot = new Folder("CloudRoot");
@@ -118,5 +132,9 @@ internal class Program
 
         ShowList(cloudStorage, "/Backups");
         TryExecute(() => ShowList(cloudStorage, $"/Backups/{backupFolder.Children.FirstOrDefault()?.Name}"));
+
+        TryExecute(() => cloudStorage.DeleteItem("/Backups"));
+        ShowList(cloudStorage, "/");
+
     }
 }

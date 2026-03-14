@@ -10,17 +10,13 @@ namespace GofCAF.Models
     internal class FileSystemAdapter : IFileSystem
     {
         private FileSystemItem _root;
-
-        public FileSystemAdapter(FileSystemItem root)
-        {
-            _root = root;
-        }
+        public FileSystemAdapter(FileSystemItem root) => _root = root;
 
         private FileSystemItem FindByPath(string path)
         {
             var parts = path?.Trim().Split('/', '\\').Where(p => !string.IsNullOrEmpty(p)) ?? Enumerable.Empty<string>();
+            
             FileSystemItem current = _root;
-
             foreach (var part in parts)
             {
                 if (current is Folder folder && folder.Children.FirstOrDefault(c => c.Name == part) is FileSystemItem found)
@@ -83,9 +79,7 @@ namespace GofCAF.Models
                 }
 
                 if (existing is Folder folder)
-                {
                     current = folder;
-                }
 
                 else
                     throw new InvalidOperationException($"{path}: '{part}' is not a Folder and already exists");
@@ -103,28 +97,23 @@ namespace GofCAF.Models
             if (item is File file)
                 file.Data = data?.ToArray();
             else
-                throw new InvalidOperationException($"{path}: '{item.Name}' is not a File and already exists");
-                
+                throw new InvalidOperationException($"{path}: '{item.Name}' is not a File and already exists");    
         }
 
         public void DeleteItem(string path)
         {
-            var item = FindByPath(path);
-            if (path == "/") throw new InvalidOperationException("Cannot delete root");
-
-            if(item is Folder folder && folder.Children.Count > 0) throw new InvalidOperationException("Cannot delete non-empty folder");
+            if (path.Trim() == "/" || path.Trim() == "\\" || path == "") 
+                throw new InvalidOperationException("Cannot delete root");
 
             int lastSlash = path.LastIndexOf('/');
-            string parentPath = lastSlash == 0 ? "/" : path.Substring(0, lastSlash);
-            var parent = FindByPath(parentPath);
+            string parentPath = lastSlash <= 0 ? "/" : path.Substring(0, lastSlash);
 
-            parent.Remove(item);
+            var parent = FindByPath(parentPath) as Folder;
 
-            if (item is File file)
-                file.Data = null;
+            var item = FindByPath(path);
 
-            item = null;
-            return;
+            // This is not C++, we have garbage collector
+            parent?.Remove(item);
         }
 
     }
