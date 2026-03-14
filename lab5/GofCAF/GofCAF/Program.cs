@@ -7,7 +7,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-
+        
         void TryExecute(Action action)
         {
             try
@@ -36,16 +36,16 @@ internal class Program
 
         // --- Filesystem Adapter ---
 
-        IFileSystem fileSystem = new FileSystemAdapter(root);
+        IFileSystem localStorage = new FileSystemAdapter(root);
 
         Console.WriteLine($"\nList of {root.Name}:");
-        var rootItems = fileSystem.ListItems("/");
+        var rootItems = localStorage.ListItems("/");
         foreach (var item in rootItems)
         {
             Console.WriteLine($"|-{item}");
         }
 
-        void ShowList(string path)
+        void ShowList(IFileSystem fileSystem,string path)
         {
             Console.WriteLine($"\nList of {path}:");
   
@@ -55,50 +55,68 @@ internal class Program
                 }
         }
 
-        TryExecute(() => ShowList("/yabai"));
-        TryExecute(() => ShowList("/nonextistent"));
+        TryExecute(() => ShowList(localStorage, "/yabai"));
+        TryExecute(() => ShowList(localStorage, "/nonextistent"));
 
         // --- Reading & Writing ---
  
         String myPath = "/yabai/eeee";
 
         Console.Write($"\nWriting file: {myPath}");
-        TryExecute(() => fileSystem.WriteFile(myPath, new byte[] { 1, 2, 3, 4 }));
+        TryExecute(() => localStorage.WriteFile(myPath, new byte[] { 1, 2, 3, 4 }));
         Console.WriteLine($"\tSuccess!");
 
-        void ShowBytes(byte[]? data)
+        void ReadBytes(IFileSystem fs, String path)
         {
-            Console.WriteLine($"Size: {data?.Length ?? 0}");
+            var data = fs.ReadFile(path);
+            Console.WriteLine($"\nReading {path} (Size: {data?.Length ?? 0} Bytes)...");
             if(data != null)
                 Console.WriteLine(string.Join(" ", data));
         }
         
-        Console.WriteLine($"Reading {myPath}...");
         TryExecute(() => {
-            var data = fileSystem.ReadFile(myPath);
-            ShowBytes(data);
+            ReadBytes(localStorage,myPath);
         });
 
         ////////////////
 
         myPath = "/newfile.txt";
 
-        Console.Write($"\nWriting file {myPath}:");
-        TryExecute(() => fileSystem.WriteFile("/newfile.txt", new byte[] { 1, 2, 3, 4, 7, 6 }));
-        Console.WriteLine($"\tSuccess!");
+        Console.WriteLine($"\nWriting file '{myPath}'...");
+        TryExecute(() => localStorage.WriteFile("/newfile.txt", new byte[] { 1, 2, 3, 4, 7, 6 }));
+        Console.WriteLine($"OK");
 
-        Console.WriteLine($"Reading {myPath}...");
         TryExecute(() => {
-            var data = fileSystem.ReadFile(myPath);
-            ShowBytes(data);
+            ReadBytes(localStorage, myPath);
         });
 
-        TryExecute(() => ShowList("/"));
+        TryExecute(() => ShowList(localStorage, "/"));
 
-        Console.Write($"\nDeleting {myPath}:");
-        TryExecute(() => fileSystem.DeleteItem(myPath));
-        Console.WriteLine($"\tSuccess!");
+        // --- Backup ---
 
-        TryExecute(() => ShowList("/"));
+        Folder cloudRoot = new Folder("CloudRoot");
+        IFileSystem cloudStorage = new FileSystemAdapter(cloudRoot);
+
+        SyncFacade facade = new SyncFacade(localStorage, cloudStorage);
+        facade.OnLog += Console.WriteLine;  // Subscribe to OnLog Action delegate
+
+        cloudRoot.Add(new Folder("MyRoot"));
+        var backupFolder = new Folder("Backups");
+        cloudRoot.Add(backupFolder);
+
+        ShowList(cloudStorage, "/");
+
+        Console.WriteLine("Sync to Cloud:");
+        TryExecute(() => facade.SyncFolder("/", "/MyRoot"));
+        TryExecute(() => ShowList(cloudStorage, "/MyRoot"));
+
+        TryExecute(() => ReadBytes(cloudStorage, $"/MyRoot{myPath}"));
+
+
+        Console.WriteLine("\nBackup:");
+        TryExecute(() => facade.Backup("/yabai", "/Backups"));
+
+        ShowList(cloudStorage, "/Backups");
+        TryExecute(() => ShowList(cloudStorage, $"/Backups/{backupFolder.Children.FirstOrDefault()?.Name}"));
     }
 }

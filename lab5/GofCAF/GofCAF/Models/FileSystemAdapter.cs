@@ -18,7 +18,7 @@ namespace GofCAF.Models
 
         private FileSystemItem FindByPath(string path)
         {
-            var parts = path?.Split('/', '\\').Where(p => !string.IsNullOrEmpty(p)) ?? Enumerable.Empty<string>();
+            var parts = path?.Trim().Split('/', '\\').Where(p => !string.IsNullOrEmpty(p)) ?? Enumerable.Empty<string>();
             FileSystemItem current = _root;
 
             foreach (var part in parts)
@@ -26,7 +26,7 @@ namespace GofCAF.Models
                 if (current is Folder folder && folder.Children.FirstOrDefault(c => c.Name == part) is FileSystemItem found)
                     current = found;
                 else
-                    throw new InvalidOperationException($"{path}: Item not found");
+                    throw new InvalidOperationException($"{path}: '{part}' not found");
             }
 
             return current;
@@ -60,42 +60,51 @@ namespace GofCAF.Models
             if (item is File file)
                 return file.Data;
             
-            throw new InvalidOperationException($"{path} is folder, not a file");
-        }
-
-        private string GetParentPath(string path)
-        {
-            int lastSlash = path.LastIndexOf('/');
-            return lastSlash == 0 ? "/" : path.Substring(0, lastSlash);
+            throw new InvalidOperationException($"{path}: '{item.Name}' is not a File");
         }
 
         public void WriteFile(string path, byte[] data)
         {
-            
-            try { 
-                var item = FindByPath(path);
+            var parts = path.Split('/', '\\').Where(p => !string.IsNullOrEmpty(p)).ToList();
+            if (!parts.Any()) return;
 
-                if (item is File file)
-                {
-                    file.Data = data.ToArray();
-                    return;
-                }
-                if (item is Folder folder)
-                {
-                    throw new InvalidOperationException($"{path} is folder, not a file");
-                }
+            string fileName = parts.Last();
+            var current = (Folder)_root;
 
-            }
-            catch (InvalidOperationException)
+            // Find and Create all non-existing folders
+            foreach (var part in parts.SkipLast(1))
             {
-                // Create new file if it doesn't exist
-                var parent = FindByPath(GetParentPath(path));
-                int lastSlash = path.LastIndexOf('/');
-                string newFileName = path.Substring(lastSlash+1);
-                var newFile = new File(newFileName);
-                parent.Add(newFile);
-                newFile.Data = data.ToArray();
+                var existing = current.Children.FirstOrDefault(c => c.Name == part);
+
+                if (existing == null)
+                {
+                    existing = new Folder(part);
+                    current.Add(existing);
+                }
+
+                if (existing is Folder folder)
+                {
+                    current = folder;
+                }
+
+                else
+                    throw new InvalidOperationException($"{path}: '{part}' is not a Folder and already exists");
             }
+
+            // Write file and create if non-existent
+            var item = current.Children.FirstOrDefault(c => c.Name == fileName);
+            
+            if (item == null)
+            {
+                item = new File(fileName);
+                current.Add(item);
+            }
+
+            if (item is File file)
+                file.Data = data?.ToArray();
+            else
+                throw new InvalidOperationException($"{path}: '{item.Name}' is not a File and already exists");
+                
         }
 
         public void DeleteItem(string path)
