@@ -75,7 +75,7 @@ public class ColorRender(string name, ConsoleColor color) : IRenderable
 }
 ```
 
-`Something` class
+`CharacterFactory` class
 ```csharp
 // FlyweightFactory 
 internal class CharacterFactory
@@ -174,11 +174,124 @@ I've successfully implemented Flyweight pattern
 ## Step 2: Proxy
 
 ### Theory
+What if we want to have Lazy initialization? We can use Proxy pattern to initialize proxy object first and then load an actual object, once one of proxy's method is called
 
 ### Practice
+I created single interface for Images and Proxies of Images so that we can work with both seamlessly
+```csharp
+public interface IImage : IRenderable
+{
+    int GetWidth();
+    int GetHeight();
+}
+```
+Created a class for an actual `HighResolutionImage`
+```csharp
+ public class HighResolutionImage : IImage
+ {
+     private string _filename;
+     private int _width;
+     private int _height;
+     public HighResolutionImage(string filename)
+     {
+         _filename = filename;
+         Console.Write($"Loading {_filename}... ");
+         LoadFromDisk();
+     }
+     private void LoadFromDisk()
+     {
+         // Slow loading imitation
+         Thread.Sleep(1000);
+         _width = 1920;
+         _height = 1080;
+         Console.WriteLine($"loaded ({_width}x{_height})");
+     }
+     public void Render(int posX, int posY)
+     {
+         Console.WriteLine($"Rendering image '{_filename}' at ({posX},{posY})");
+     }
+     public int GetWidth() => _width;
+     public int GetHeight() => _height;
+ }
+```
+And now it's time to create `Proxy`
+```csharp
+ public class ImageProxy : IImage
+ {
+     private string _filename;
+     private HighResolutionImage? _realImage; // nullable
+     public ImageProxy(string filename)
+     {
+         _filename = filename;
+         Console.WriteLine($"[Proxy] Craeted proxy for {_filename}");
+     }
+     private void EnsureLoaded()
+     {
+         if (_realImage == null)
+         {
+             Console.WriteLine($"[Proxy] Method is called: Loading object");
+             _realImage = new HighResolutionImage(_filename);
+         }
+     }
+     public void Render(int posX, int posY)
+     {
+         EnsureLoaded();
+         Console.Write($"[Proxy]");
+         _realImage?.Render(posX, posY);
+     }
+     public int GetWidth()
+     {
+         EnsureLoaded();
+         Console.WriteLine($"[Proxy]");
+         return _realImage?.GetWidth() ?? 0;
+     }
+     public int GetHeight()
+     {
+         EnsureLoaded();
+         Console.WriteLine($"[Proxy]");
+         return _realImage?.GetHeight() ?? 0;
+     }
+ }
+```
+Because of `EnsureLoaded` method, image wouldn't be null, but I added null checks in other methods just in case
+### Program.cs (Main)
 
-### Program.cs
+```csharp
+// Proxy
 
+Console.WriteLine();
+
+// (will not load imgs)
+IImage img1 = new ImageProxy("image1.png");
+IImage img2 = new ImageProxy("image2.png");
+IImage img3 = new ImageProxy("image3.png");
+
+Console.WriteLine();
+
+Console.WriteLine($"img1 Width: {img1.GetWidth()}px"); // will load img1
+img2.Render(34,56); // will load img2
+Console.WriteLine($"img1 Heigth: {img1.GetHeight()}px"); // already loaded
+
+// img3 won't be loaded
+```
+
+*Output*
+```
+[Proxy] Craeted proxy for image1.png
+[Proxy] Craeted proxy for image2.png
+[Proxy] Craeted proxy for image3.png
+
+[Proxy] Method is called: Loading object
+Loading image1.png... loaded (1920x1080)
+[Proxy]
+img1 Width: 1920px
+[Proxy] Method is called: Loading object
+Loading image2.png... loaded (1920x1080)
+[Proxy]Rendering image 'image2.png' at (34,56)
+[Proxy]
+img1 Heigth: 1080px
+```
+img3 wasn't loaded indeed
 ### Summary
 I've successfully implemented Proxy pattern
 

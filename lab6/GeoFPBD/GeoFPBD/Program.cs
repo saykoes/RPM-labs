@@ -10,6 +10,7 @@ internal class Program
     
     private static void Main(string[] args)
     { 
+        // Flyweight
         CharacterFactory charFactory = new CharacterFactory();
 
         var screenChars = new List<posChar>
@@ -31,5 +32,22 @@ internal class Program
         Console.WriteLine();
 
         Console.WriteLine($"Unique characters: {charFactory.GetCount()}");
+
+        // Proxy
+
+        Console.WriteLine();
+
+        // (will not load imgs)
+        IImage img1 = new ImageProxy("image1.png");
+        IImage img2 = new ImageProxy("image2.png");
+        IImage img3 = new ImageProxy("image3.png");
+        
+        Console.WriteLine();
+
+        Console.WriteLine($"img1 Width: {img1.GetWidth()}px"); // will load img1
+        img2.Render(34,56); // will load img2
+        Console.WriteLine($"img1 Heigth: {img1.GetHeight()}px"); // already loaded
+        
+        // img3 won't be loaded
     }
 }
