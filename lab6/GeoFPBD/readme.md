@@ -472,9 +472,9 @@ printEngine.EndRender();
 Console.WriteLine();
 
 // screenEngine
-Rectangle screenRect = new Rectangle(printEngine, 15.5f, 30.0f, 120.0f, 60.5f);
-Ellipse screenEllipse = new Ellipse(printEngine, 250.0f, 150.0f, 45.0f, 45.0f);
-Line screenLine = new Line(printEngine, 10.0f, 10.0f, 300.0f, 450.0f);
+Rectangle screenRect = new Rectangle(screenEngine, 15.5f, 30.0f, 120.0f, 60.5f);
+Ellipse screenEllipse = new Ellipse(screenEngine, 250.0f, 150.0f, 45.0f, 45.0f);
+Line screenLine = new Line(screenEngine, 10.0f, 10.0f, 300.0f, 450.0f);
 
 screenEngine.BeginRender();
 screenRect.Draw();
@@ -499,14 +499,14 @@ screenEngine.EndRender();
 [Print] Render End
 
 [Screen] Render Start
-[Print] Rectangle (15.5;30) 120x60.5
-[Print] Ellipse (250;150) radius (rx: 45; ry:45)
-[Print] Line (10;10)--(300;450)
+[Screen] Rectangle (15.5;30) 120x60.5
+[Screen] Ellipse (250;150) radius (rx: 45; ry:45)
+[Screen] Line (10;10)--(300;450)
 [Screen] Render End
 
 [Line] Moved by (5;10), now it's at: (15;20)--(305;460)
 [Screen] Render Start
-[Print] Line (15;20)--(305;460)
+[Screen] Line (15;20)--(305;460)
 [Screen] Render End
 ```
 
@@ -520,9 +520,230 @@ I've successfully implemented Bridge pattern
 
 ### Theory
 
+What if I want to add visual effects for each individual object separately on runtime, without adding a lot of classes for each edge case? I can use Decorator for that. Decorator will store a link to the original object and will apply its own effects on top of it
+
 ### Practice
 
+Let's create a base class for all of Decorators
+
+```csharp
+public abstract class DrawableDecorator : IDrawable
+{
+    protected IDrawable _wrappee; // original object
+    public DrawableDecorator(IDrawable wrappee)
+    {
+        _wrappee = wrappee;
+    }
+    public virtual void Draw()
+    {
+        _wrappee.Draw(); // draw the original object
+    }
+}
+```
+
+Border decorator
+```csharp
+internal class BorderDecorator : DrawableDecorator
+{
+    private int _borderWidth;
+    public BorderDecorator(IDrawable wrappee, int borderWidth) : base(wrappee)
+    {
+        _borderWidth = borderWidth;
+    }
+    public override void Draw()
+    {
+        base.Draw(); // draw the original object
+        Console.WriteLine($"|---[Border (Width: {_borderWidth}px)]"); // draw effect on top of it
+    }
+}
+```
+
+Shadow decorator
+```csharp
+internal class ShadowDecorator : DrawableDecorator
+{
+    private int _shadowOffset;
+    public ShadowDecorator(IDrawable wrappee, int shadowOffset) : base(wrappee)
+    {
+        _shadowOffset = shadowOffset;
+    }
+    public override void Draw()
+    {
+        base.Draw();
+        Console.WriteLine($"|---[Shadow (Offset: {_shadowOffset}px)]");
+    }
+}
+```
+
+Transparency decorator
+```csharp
+internal class TransparencyDecorator : DrawableDecorator
+{
+    private int _transparencyLevel;
+    public TransparencyDecorator(IDrawable wrappee, int transparencyLevel) : base(wrappee)
+    {
+        _transparencyLevel = transparencyLevel;
+    }
+    public override void Draw()
+    {
+        base.Draw();
+        Console.WriteLine($"|---[Transpareny ({_transparencyLevel}%)]");
+    }
+}
+```
+
+And let's create `Document` class, where we'll be able to store `Pages` in which there'll be `IDrawable` objects
+
+```csharp
+public class Document(IRenderingEngine engine)
+{
+    private List<Page> _pages = new List<Page>();
+    public Page CreatePage()
+    {
+        var page = new Page();
+        _pages.Add(page);
+        return page;
+    }
+    public void RenderAll()
+    {
+        engine.BeginRender();
+        for (int i = 0; i < _pages.Count; i++)
+        {
+            Console.WriteLine($"\n--- Page {i + 1} ---");
+            _pages[i].Render();
+        }
+        engine.EndRender();
+    }
+}
+```
+```csharp
+public class Page
+{
+    private List<IDrawable> _drawables = new List<IDrawable>();
+    public void Add(IDrawable drawable)
+    {
+        _drawables.Add(drawable);
+    }
+    public void Render()
+    {
+        foreach (var d in _drawables)
+        {
+            d.Draw();
+            Console.WriteLine();
+        }
+    }
+}
+```
+
 ### Program.cs
+
+```csharp
+Rectangle screenRect = new Rectangle(screenEngine, 15.5f, 30.0f, 120.0f, 60.5f);
+Ellipse screenEllipse = new Ellipse(screenEngine, 250.0f, 150.0f, 45.0f, 45.0f);
+Line screenLine = new Line(screenEngine, 10.0f, 10.0f, 300.0f, 450.0f);
+// .... //
+IDrawable neonRect = new ShadowDecorator(screenRect, 12);
+IDrawable thickBorderEllipse = new BorderDecorator(screenEllipse, 8);
+IDrawable ghostLine = new TransparencyDecorator(screenLine, 85);
+
+neonRect.Draw(); Console.WriteLine();
+thickBorderEllipse.Draw(); Console.WriteLine();
+ghostLine.Draw(); Console.WriteLine();
+```
+```
+-- *Output* --
+
+[Screen] Rectangle (15.5;30) 120x60.5
+|---[Shadow (Offset: 12px)]
+
+[Screen] Ellipse (250;150) radius (rx: 45,ry:45)
+|---[Border (Width: 8px)]
+
+[Screen] Line (10;10)--(300;450)
+|---[Transpareny (85%)]
+```
+
+```csharp
+IDrawable glassRect = new BorderDecorator(
+                        new TransparencyDecorator(screenRect, 40), 2);
+
+IDrawable heavyEllipse = new BorderDecorator(
+                            new ShadowDecorator(screenEllipse, 15), 4);
+
+IDrawable complexLine = new BorderDecorator(
+                            new TransparencyDecorator(
+                                new ShadowDecorator(screenLine, 6), 25), 1);
+
+glassRect.Draw(); Console.WriteLine();
+heavyEllipse.Draw(); Console.WriteLine();
+complexLine.Draw(); Console.WriteLine();
+```
+```
+-- *Output* --
+
+[Screen] Rectangle (15.5;30) 120x60.5
+|---[Transpareny (40%)]
+|---[Border (Width: 2px)]
+
+[Screen] Ellipse (250;150) radius (rx: 45,ry:45)
+|---[Shadow (Offset: 15px)]
+|---[Border (Width: 4px)]
+
+[Screen] Line (10;10)--(300;450)
+|---[Shadow (Offset: 6px)]
+|---[Transpareny (25%)]
+|---[Border (Width: 1px)]
+```
+
+```csharp
+Document mainDoc = new Document(screenEngine);
+
+Page coverPage = mainDoc.CreatePage(); 
+coverPage.Add(screenEllipse);
+coverPage.Add(neonRect);
+coverPage.Add(heavyEllipse);
+
+Page contentPage = mainDoc.CreatePage();
+contentPage.Add(screenLine);
+contentPage.Add(ghostLine);
+contentPage.Add(glassRect);
+contentPage.Add(complexLine);
+
+mainDoc.RenderAll();
+```
+```
+-- *Output* --
+
+[Screen] Render Start
+
+--- Page 1 ---
+[Screen] Ellipse (250;150) radius (rx: 45,ry:45)
+
+[Screen] Rectangle (15.5;30) 120x60.5
+|---[Shadow (Offset: 12px)]
+
+[Screen] Ellipse (250;150) radius (rx: 45,ry:45)
+|---[Shadow (Offset: 15px)]
+|---[Border (Width: 4px)]
+
+
+--- Page 2 ---
+[Screen] Line (10;10)--(300;450)
+
+[Screen] Line (10;10)--(300;450)
+|---[Transpareny (85%)]
+
+[Screen] Rectangle (15.5;30) 120x60.5
+|---[Transpareny (40%)]
+|---[Border (Width: 2px)]
+
+[Screen] Line (10;10)--(300;450)
+|---[Shadow (Offset: 6px)]
+|---[Transpareny (25%)]
+|---[Border (Width: 1px)]
+
+[Screen] Render End
+```
 
 ### Summary
 

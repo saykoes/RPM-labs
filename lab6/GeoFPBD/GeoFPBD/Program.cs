@@ -1,7 +1,9 @@
 ﻿using GeoFPBD.Model;
 using System;
 using System.Data.Common;
+using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
+using Document = GeoFPBD.Model.Document;
 
 // Client
 internal class Program
@@ -11,7 +13,7 @@ internal class Program
     
     private static void Main(string[] args)
     { 
-        // Flyweight
+        // --- Flyweight ---
         CharacterFactory charFactory = new CharacterFactory();
 
         var screenChars = new List<posChar>
@@ -51,7 +53,7 @@ internal class Program
 
         // img3 won't be loaded
 
-        // Bridge
+        // --- Bridge ---
 
         Console.WriteLine();
 
@@ -72,9 +74,9 @@ internal class Program
         Console.WriteLine();
 
         // screenEngine
-        Rectangle screenRect = new Rectangle(printEngine, 15.5f, 30.0f, 120.0f, 60.5f);
-        Ellipse screenEllipse = new Ellipse(printEngine, 250.0f, 150.0f, 45.0f, 45.0f);
-        Line screenLine = new Line(printEngine, 10.0f, 10.0f, 300.0f, 450.0f);
+        Rectangle screenRect = new Rectangle(screenEngine, 15.5f, 30.0f, 120.0f, 60.5f);
+        Ellipse screenEllipse = new Ellipse(screenEngine, 250.0f, 150.0f, 45.0f, 45.0f);
+        Line screenLine = new Line(screenEngine, 10.0f, 10.0f, 300.0f, 450.0f);
 
         screenEngine.BeginRender();
         screenRect.Draw();
@@ -88,5 +90,50 @@ internal class Program
         screenEngine.BeginRender();
         printLine.Draw();
         screenEngine.EndRender();
+
+        // --- Decorator ---
+
+        Console.WriteLine("\n--- Decorator ---\n");
+
+        IDrawable neonRect = new ShadowDecorator(screenRect, 12);
+        IDrawable thickBorderEllipse = new BorderDecorator(screenEllipse, 8);
+        IDrawable ghostLine = new TransparencyDecorator(screenLine, 85);
+
+        neonRect.Draw(); Console.WriteLine();
+        thickBorderEllipse.Draw(); Console.WriteLine();
+        ghostLine.Draw(); Console.WriteLine();
+
+        Console.WriteLine();
+
+        IDrawable glassRect = new BorderDecorator(
+                                new TransparencyDecorator(screenRect, 40), 2);
+
+        IDrawable heavyEllipse = new BorderDecorator(
+                                    new ShadowDecorator(screenEllipse, 15), 4);
+
+        IDrawable complexLine = new BorderDecorator(
+                                    new TransparencyDecorator(
+                                        new ShadowDecorator(screenLine, 6), 25), 1);
+
+        glassRect.Draw(); Console.WriteLine();
+        heavyEllipse.Draw(); Console.WriteLine();
+        complexLine.Draw(); Console.WriteLine();
+
+        Console.WriteLine();
+
+        Document mainDoc = new Document(screenEngine);
+
+        Page coverPage = mainDoc.CreatePage(); 
+        coverPage.Add(screenEllipse);
+        coverPage.Add(neonRect);
+        coverPage.Add(heavyEllipse);
+
+        Page contentPage = mainDoc.CreatePage();
+        contentPage.Add(screenLine);
+        contentPage.Add(ghostLine);
+        contentPage.Add(glassRect);
+        contentPage.Add(complexLine);
+
+        mainDoc.RenderAll();
     }
 }
