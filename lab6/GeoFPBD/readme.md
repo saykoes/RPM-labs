@@ -301,9 +301,214 @@ I've successfully implemented Proxy pattern
 
 ### Theory
 
+But what if I want to separate Implimentaion (rendering in our case) from Abstraction (shapes, characters etc.)? 
+I can use Bridge pattern for that
+
 ### Practice
 
+### Abstraction (Shapes)
+I've created interfaces for shapes
+
+```csharp
+public interface IDrawable
+{
+    void Draw();
+}
+public abstract class GraphicObject : IDrawable
+{
+    protected IRenderingEngine _engine;
+    public GraphicObject(IRenderingEngine engine)
+    {
+        _engine = engine;
+    }
+    public abstract void Draw();
+    public abstract void Move(float dx, float dy);
+}
+```
+
+Rectangle
+```csharp
+internal class Rectangle : GraphicObject
+{
+    private float _x, _y, _width, _height;
+    public Rectangle(IRenderingEngine engine, float x, float y, float width, float height) : base(engine)
+    {
+        _x = x;
+        _y = y;
+        _width = width;
+        _height = height;
+    }
+    public override void Draw()
+    {
+        _engine.RenderRectangle(_x, _y, _width, _height);
+    }
+    public override void Move(float dx, float dy)
+    {
+        _x += dx;
+        _y += dy;
+        Console.WriteLine($"[Rectangle] Moved by ({dx};{dy}), now it's at: ({_x};{_y})");
+    }
+}
+```
+
+Ellipse
+```csharp
+internal class Ellipse : GraphicObject
+{
+    private float _x, _y, _radiusX, _radiusY;
+    public Ellipse(IRenderingEngine engine, float x, float y, float radiusX, float radiusY) : base(engine)
+    {
+        _x = x;
+        _y = y;
+        _radiusX = radiusX;
+        _radiusY = radiusY;
+    }
+    public override void Draw()
+    {
+        _engine.RenderEllipse(_x, _y, _radiusX, _radiusY);
+    }
+    public override void Move(float dx, float dy)
+    {
+        _x += dx;
+        _y += dy;
+        Console.WriteLine($"[Ellipse] Moved by ({dx};{dy}), now it's at: ({_x};{_y})");
+    }
+}
+```
+
+And Line
+```csharp
+internal class Line : GraphicObject
+{
+    private float _x1, _y1, _x2, _y2;
+    public Line(IRenderingEngine engine, float x1, float y1, float x2, float y2) : base(engine)
+    {
+        _x1 = x1; _y1 = y1;
+        _x2 = x2; _y2 = y2;
+    }
+    public override void Draw()
+    {
+        _engine.RenderLine(_x1, _y1, _x2, _y2);
+    }
+    public override void Move(float dx, float dy)
+    {
+        _x1 += dx; _y1 += dy;
+        _x2 += dx; _y2 += dy;
+        Console.WriteLine($"[Line] Moved by ({dx};{dy}), now it's at: ({_x1};{_y1})--({_x2};{_y2})");
+    }
+}
+```
+
+### Implementation (Rendering)
+
+Created single interface for renderers
+```csharp
+public interface IRenderingEngine
+{
+    void BeginRender();
+    void EndRender();
+    void RenderRectangle(float x, float y, float width, float height);
+    void RenderEllipse(float x, float y, float radiusX, float radiusY);
+    void RenderLine(float x1, float y1, float x2, float y2);
+}
+```
+
+Added first type of renderer
+```csharp
+internal class PrintRenderer : IRenderingEngine
+{
+    public void BeginRender() =>
+        Console.WriteLine("[Print] Render Start");
+    public void EndRender() =>
+        Console.WriteLine("[Print] Render End");
+    public void RenderRectangle(float x, float y, float width, float height) =>
+        Console.WriteLine($"[Print] Rectangle ({x};{y}) {width}x{height}");
+    public void RenderEllipse(float x, float y, float radiusX, float radiusY) =>
+        Console.WriteLine($"[Print] Ellipse ({x};{y}) radius (rx: {radiusX}; ry:{radiusY})");
+    public void RenderLine(float x1, float y1, float x2, float y2) =>
+        Console.WriteLine($"[Print] Line ({x1};{y1})--({x2};{y2})");
+}
+```
+
+And the second one
+
+```csharp
+public class ScreenRenderer : IRenderingEngine
+{
+    public void BeginRender() =>
+        Console.WriteLine("[Screen] Render Start");
+    public void EndRender() =>
+        Console.WriteLine("[Screen] Render End");
+    public void RenderRectangle(float x, float y, float width, float height) =>
+        Console.WriteLine($"[Screen] Rectangle ({x};{y}) {width}x{height}");
+    public void RenderEllipse(float x, float y, float radiusX, float radiusY) =>
+        Console.WriteLine($"[Screen] Ellipse ({x};{y}) radius (rx: {radiusX},ry:{radiusY})");
+    public void RenderLine(float x1, float y1, float x2, float y2) =>
+        Console.WriteLine($"[Screen] Line ({x1};{y1})--({x2};{y2})");
+}
+```
+
 ### Program.cs
+
+```csharp
+// Bridge
+
+Console.WriteLine();
+
+IRenderingEngine screenEngine = new ScreenRenderer();
+IRenderingEngine printEngine = new PrintRenderer();
+
+// printEngine
+Rectangle printRect = new Rectangle(printEngine, 15.5f, 30.0f, 120.0f, 60.5f);
+Ellipse printEllipse = new Ellipse(printEngine, 250.0f, 150.0f, 45.0f, 45.0f);
+Line printLine = new Line(printEngine, 10.0f, 10.0f, 300.0f, 450.0f);
+
+printEngine.BeginRender();
+printRect.Draw();
+printEllipse.Draw();
+printLine.Draw();
+printEngine.EndRender();
+
+Console.WriteLine();
+
+// screenEngine
+Rectangle screenRect = new Rectangle(printEngine, 15.5f, 30.0f, 120.0f, 60.5f);
+Ellipse screenEllipse = new Ellipse(printEngine, 250.0f, 150.0f, 45.0f, 45.0f);
+Line screenLine = new Line(printEngine, 10.0f, 10.0f, 300.0f, 450.0f);
+
+screenEngine.BeginRender();
+screenRect.Draw();
+screenEllipse.Draw();
+screenLine.Draw();
+screenEngine.EndRender();
+
+Console.WriteLine();
+
+printLine.Move(5.0f, 10.0f);
+screenEngine.BeginRender();
+printLine.Draw();
+screenEngine.EndRender();
+```
+
+*Output*
+```
+[Print] Render Start
+[Print] Rectangle (15.5;30) 120x60.5
+[Print] Ellipse (250;150) radius (rx: 45; ry:45)
+[Print] Line (10;10)--(300;450)
+[Print] Render End
+
+[Screen] Render Start
+[Print] Rectangle (15.5;30) 120x60.5
+[Print] Ellipse (250;150) radius (rx: 45; ry:45)
+[Print] Line (10;10)--(300;450)
+[Screen] Render End
+
+[Line] Moved by (5;10), now it's at: (15;20)--(305;460)
+[Screen] Render Start
+[Print] Line (15;20)--(305;460)
+[Screen] Render End
+```
 
 ### Summary
 
