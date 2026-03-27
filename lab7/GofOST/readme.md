@@ -106,18 +106,33 @@ I've successfully implemented Observer pattern
 
 ### Theory
 
+What if we want to incapsulate simmilar logic of different objects in a general interface and make many different implementations of the interface only for specifics of objects? We can utilize Stategy pattern.
 
 ### Practice
-
-### Program.cs
+Let's create interface (Strategy)
 ```csharp
-
+public interface IFormatStrategy
+{
+    string Format(string message, DateTime timestamp);
+}
+```
+And its implementations (ConcreteStrateges)
+```csharp
+public class TextFormatStrategy : IFormatStrategy
+{
+    public string Format(string message, DateTime timestamp) =>
+        $"[{timestamp:yyyy-MM-dd HH:mm:ss}] {message}";
+}
+```
+```csharp
+public class JsonFormatStrategy : IFormatStrategy
+{
+    public string Format(string message, DateTime timestamp) =>
+        $"{{\"timestamp\":\"{timestamp:O}\",\"message\":\"{message}\"}}";
+}
 ```
 
-*Output*
-```
-
-```
+We're going to create context (which works with ConcreteStrategies via Startegy interface) in the next step
 
 ### Summary
 I've successfully implemented Strategy pattern
