@@ -106,7 +106,7 @@ I've successfully implemented Observer pattern
 
 ### Theory
 
-What if we want to incapsulate simmilar logic of different objects in a general interface and make many different implementations of the interface only for specifics of objects? We can utilize Stategy pattern.
+What if we want to work with different implementations of one simillar thing via one common interface? We can use Strategy for that
 
 ### Practice
 Let's create interface (Strategy)
@@ -143,20 +143,103 @@ I've successfully implemented Strategy pattern
 
 ### Theory
 
+What if we want to incapsulate simmilar logic of different objects in a base class and make specific logic in its children? We can utilize Template Method pattern.
+
 
 ### Practice
 
+Let's make base class that will store basic logic
+```csharp
+public abstract class EventHandlerBase
+{
+    protected IFormatStrategy _formatStrategy; //текущая стратегия
+    protected EventHandlerBase(IFormatStrategy strategy)
+    {
+        _formatStrategy = strategy;
+    }
+    //Метод установки стратегии
+    public void SetStrategy(IFormatStrategy strategy)
+    {
+        _formatStrategy = strategy;
+    }
+    public virtual void ProcessEvent(MetricEventArgs e)
+    {
+        var message = FormatMessage(e.EventType, e.Data); //форматируем по стратегии
+        SendMessage(message); //отправляем уведомление
+        LogResult(); //логируем результат (опционально)
+    }
+
+    // Данный метод определит последовательность вызовов
+    //Обратите внимание на сигнатуру
+    public abstract string FormatMessage(string type, object data);
+    public abstract void SendMessage(string message);
+    public abstract void LogResult();
+}
+
+```
+
+Then make specifics
+
+```csharp
+public class ConsoleHandler : EventHandlerBase
+{
+    IFormatStrategy _strategy;
+    public ConsoleHandler(IFormatStrategy strategy) : base(strategy) =>
+        _strategy = strategy;
+    public override string FormatMessage(string msg, object data)
+    {
+        if (data is MetricData metricData)
+            return _strategy.Format(msg, metricData.Timestamp);
+
+        return _strategy.Format(msg, DateTime.Now);
+    }
+    public override void SendMessage(string msg) =>
+        Console.WriteLine($"[Console]: {msg}");
+    public override void LogResult() =>
+        Console.WriteLine($"[ConsoleLog] at {DateTime.Now}");
+}
+```
+
+```csharp
+public class FileHandler : EventHandlerBase
+{
+    IFormatStrategy _strategy;
+    public FileHandler(IFormatStrategy strategy) : base(strategy) =>
+        _strategy = strategy;
+    public override string FormatMessage(string msg, object data)
+    {
+        if (data is MetricData metricData)
+            return _strategy.Format(msg, metricData.Timestamp);
+
+        return _strategy.Format(msg, DateTime.Now);
+    }
+    public override void SendMessage(string msg) =>
+        Console.WriteLine($"[File]: {msg}");
+    public override void LogResult() =>
+        Console.WriteLine($"[FileLog] at {DateTime.Now}");
+}
+```
 
 ### Program.cs
 
 ```csharp
+JsonFormatStrategy jsonStrategy = new JsonFormatStrategy();
+TextFormatStrategy textStrategy = new TextFormatStrategy();
 
+ConsoleHandler consoleHandler = new ConsoleHandler(jsonStrategy);
+FileHandler fileHandler = new FileHandler(textStrategy);
+
+consoleHandler.ProcessEvent(new MetricEventArgs("myFavouriteConsoleLog", new MetricData("temp", 250, 100, DateTime.Now)));
+fileHandler.ProcessEvent(new MetricEventArgs("myBelovedFileLog", new MetricData("network", 1000, 100, DateTime.Now)));
 ```
 
 *Output*
 
 ```
-
+[Console]: {"timestamp":"2026-03-28T21:12:38.3672884+07:00","message":"myFavouriteConsoleLog"}
+[ConsoleLog] at 3/28/2026 9:12:38 PM
+[File]: [2026-03-28 21:12:38] myBelovedFileLog
+[FileLog] at 3/28/2026 9:12:38 PM
 ```
 ### Summary
 
