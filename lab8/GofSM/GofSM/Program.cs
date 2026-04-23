@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using System.Reflection;
+using System.Reflection.Metadata;
 
 namespace GofSM
 {
@@ -6,24 +7,42 @@ namespace GofSM
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("New job: ");
+            Printer printer = new Printer();
+            PrintQueue queue = new PrintQueue();
+            Logger logger = new Logger();
 
-            Document doc = new Document("MyDocumetb");
-            
-            doc.Print();
-            doc.Print(); // Try to print the same job again
-            doc.OnPrintSuccess(); // Print complete
-            doc.Print(); // Try to print completed job
+            PrintSystemMediator mediator = new PrintSystemMediator(printer, queue, logger);
+
+            Dispatcher dispatcher = new Dispatcher();
+            dispatcher.SetMediator(mediator);
+
+            Document doc1 = new Document("Document1", mediator);
+            Document doc2 = new Document("Document2", mediator);
+            Document doc3 = new Document("Document3", mediator);
+
             Console.WriteLine();
 
-            Document errorDoc = new Document("ErDoc444");
+            doc1.AddToQueue();
+            doc2.AddToQueue();
+            doc3.AddToQueue();
 
-            errorDoc.Print();
-            errorDoc.OnPrintFailure(); // Oh no! An error!
-            errorDoc.Print(); // Try to print wo/ resetting
-            errorDoc.Reset(); // Resetting
-            errorDoc.Print(); // Here we go
-            errorDoc.OnPrintSuccess();// Completed
+            Console.WriteLine();
+
+            // 1. Successful print
+            dispatcher.CommandProcessQueue();
+            Console.WriteLine();
+
+            // 2. Printer error and recovery
+            printer.SimulateFailure = true;
+            dispatcher.CommandProcessQueue();
+            doc2.Reset(); // Resetting after a failure
+            dispatcher.CommandProcessQueue();
+            Console.WriteLine();
+
+            // 3. Check final state
+            dispatcher.CommandProcessQueue();
+            doc3.Print(); // Try to print already printed document
+            Console.WriteLine();
         }
     }
 }

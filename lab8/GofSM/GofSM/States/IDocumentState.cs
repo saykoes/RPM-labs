@@ -9,12 +9,13 @@ namespace GofSM
     public interface IDocumentState
     {
         // change to Print
-        void Print(Document document);
+        void Print(Document document, IMediator mediator);
         // change to Complete
-        void OnPrintSuccess(Document document);
+        void OnPrintSuccess(Document document, IMediator mediator);
         // change to Fail
-        void OnPrintFailure(Document document);
+        void OnPrintFailure(Document document, IMediator mediator);
         // try again
-        void Reset(Document document);
+        void Reset(Document document, IMediator mediator);
+        void AddToQueue(Document document, IMediator mediator);
     }
 }
