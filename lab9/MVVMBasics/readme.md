@@ -18,7 +18,7 @@
 
 ### Theory
 
-We need to crete core classes for MVVM that utilize `INotifyProperyChanged` and a basic class for storing a contact
+We need to crete core classes for MVVM that utilize `INotifyProperyChanged` and `ICommand` and a basic class for storing a contact
 
 ### Practice
 
@@ -137,29 +137,137 @@ public class Contact : ObservableObject
 
 ### Theory
 
-
+Now let's create a ViewModel that our View will bind to
 
 ### Practice
 
 ```csharp
+public class MainViewModel : ObservableObject
+{
+    public ObservableCollection<Contact> Contacts { get; }
 
+    private string _name = string.Empty;
+    private string _phone = string.Empty;
+    private Contact? _selectedContact;
+    private int id = 0;
+
+    public string Name
+    {
+        get => _name;
+        set => Set(ref _name, value);
+    }
+    public string Phone
+    {
+        get => _phone;
+        set => Set(ref _phone, value);
+    }
+    public Contact? SelectedContact
+    {
+        get => _selectedContact;
+        set => Set(ref _selectedContact, value);
+    }
+
+    public ICommand AddCommand { get; }
+    public ICommand DeleteCommand { get; }
+
+    public MainViewModel()
+    {
+        Contacts = new ObservableCollection<Contact>();
+        AddCommand = new RelayCommand(
+        AddContact,
+        CanAddContact);
+
+        DeleteCommand = new RelayCommand(
+        DeleteContact,
+        CanDeleteContact);
+    }
+
+    private void AddContact()
+    {
+        Contact c = new Contact(id++, Name, Phone);
+        if (c.Validate())
+        {
+            Contacts.Add(c);
+            Name = string.Empty;
+            Phone = string.Empty;
+        }
+    }
+    private bool CanAddContact() => !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Phone) && Contact.IsPhoneValid(Phone);
+
+    private void DeleteContact()
+    {
+        if (SelectedContact is not null && Contacts.Contains(SelectedContact))
+            Contacts.Remove(SelectedContact);
+    }
+    private bool CanDeleteContact() => SelectedContact is not null;
+}
 ```
 
-```csharp
+## Step 3: View
 
-```
-```csharp
+### Theory
 
-```
-```csharp
-
-```
+The UI. We set `DataContext` to our `MainViewModel` and bind to its properties and commands
 
 ### In MainWindow.xaml
 
-```csharp
+```xml
+<Window x:Class="PhoneBook.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhoneBook"
+        xmlns:vm="clr-namespace:PhoneBook.ViewModels" 
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" >
+            <Label Content="Name:" Width="70"/>
+            <TextBox  Margin="20, 0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
 
+        <DockPanel Grid.Row="1" >
+            <Label Content="Phone:" Width="70"/>
+            <TextBox  Margin="20, 0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <Button Content="Add" Width="100" Margin="0,0,10,0" Command="{Binding AddCommand}"/>
+            <Button Content="Remove" Width="100" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
+        <DataGrid Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True"
+            ItemsSource="{Binding Contacts}"
+            SelectedItem="{Binding SelectedContact}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="Phone" Width="*" Binding="{Binding Path=Phone}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StatusBar Grid.Row="5">
+            <Label Content="{Binding ErrorMsg}"/>
+        </StatusBar>
+    </Grid>
+</Window>
 ```
+
+*Output*
+
+![Window](1.PNG)
+![We can't add non-valid data](2.PNG)
+![Now we can](3.PNG)
+![Contact has been added successfully](4.PNG)
+![Only when we select, we can delete the contact](5.PNG)
 
 ### Summary
 I've successfully implemented MVVM pattern

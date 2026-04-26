@@ -40,7 +40,7 @@ namespace PhoneBook.Models
         {
             return (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Phone) && IsPhoneValid(Phone));
         }
-        private bool IsPhoneValid(string phone)
+        public static bool IsPhoneValid(string phone)
         {
             return (phone.StartsWith('+') && phone.Substring(1, phone.Length - 1).All(char.IsDigit) && phone.Length <= 13);
         }
