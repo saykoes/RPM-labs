@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="PhoneBook.Views.ContactListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PhoneBook.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" >
+            <Label Content="Name:" Width="70"/>
+            <TextBox  Margin="20, 0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" >
+            <Label Content="Phone:" Width="70"/>
+            <TextBox  Margin="20, 0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+        </DockPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <Button Content="Add" Width="100" Margin="0,0,10,0" Command="{Binding AddCommand}"/>
+            <Button Content="Remove" Width="100" Margin="0,0,10,0" Command="{Binding DeleteCommand}"/>
+            <Button Content="Edit" Width="100" Margin="0,0,10,0" Command="{Binding EditCommand}"/>
+        </StackPanel>
+        <DataGrid Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True"
+        ItemsSource="{Binding Contacts}"
+        SelectedItem="{Binding SelectedContact}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="Phone" Width="*" Binding="{Binding Path=Phone}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

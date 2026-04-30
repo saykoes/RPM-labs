@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace PhoneBook.ViewModels
 {
-    public class MainViewModel : ObservableObject
+    public class ContactListViewModel : ViewModelBase
     {
         public ObservableCollection<Contact> Contacts { get; }
 
@@ -39,18 +39,22 @@ namespace PhoneBook.ViewModels
 
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
-
-        public MainViewModel(IDialogService ds)
+        public ICommand EditCommand { get; }
+        public ContactListViewModel(IDialogService ds, INavigationService navigation) : base(navigation)
         {
             _dialogService = ds;
             Contacts = new ObservableCollection<Contact>();
             AddCommand = new RelayCommand(
-            AddContact,
-            CanAddContact);
+                AddContact,
+                CanAddContact);
 
             DeleteCommand = new RelayCommand(
-            DeleteContact,
-            CanDeleteContact);
+                DeleteContact,
+                CanEditContact);
+
+            EditCommand = new RelayCommand(
+                () => _navigation.NavigateTo<ContactEditViewModel>(SelectedContact),
+                CanEditContact);
         }
 
         private void AddContact()
@@ -83,6 +87,6 @@ namespace PhoneBook.ViewModels
                 }
             }
         }
-        private bool CanDeleteContact() => SelectedContact is not null;
+        private bool CanEditContact() => SelectedContact is not null;
     }
 }

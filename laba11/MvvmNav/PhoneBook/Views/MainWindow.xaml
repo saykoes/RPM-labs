@@ -7,38 +7,11 @@
         xmlns:vm="clr-namespace:PhoneBook.ViewModels" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" >
-            <Label Content="Name:" Width="70"/>
-            <TextBox  Margin="20, 0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-        </DockPanel>
-
-        <DockPanel Grid.Row="1" >
-            <Label Content="Phone:" Width="70"/>
-            <TextBox  Margin="20, 0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
-        </DockPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
-            <Button Content="Add" Width="100" Margin="0,0,10,0" Command="{Binding AddCommand}"/>
-            <Button Content="Remove" Width="100" Command="{Binding DeleteCommand}"/>
+    <DockPanel Margin="5">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Button Content="List" Command="{Binding ShowContactsCommand}" Margin="0,5,5,5" Padding="10,2"/>
+            <Button Content="About" Command="{Binding ShowAboutCommand}" Margin="0,5,5,5" Padding="10,2"/>
         </StackPanel>
-        <DataGrid Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True"
-            ItemsSource="{Binding Contacts}"
-            SelectedItem="{Binding SelectedContact}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Path=Name}"/>
-                <DataGridTextColumn Header="Phone" Width="*" Binding="{Binding Path=Phone}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <StatusBar Grid.Row="5">
-            <Label Content="{Binding ErrorMsg}"/>
-        </StatusBar>
-    </Grid>
+        <ContentControl Content="{Binding NavigationService.CurrentViewModel}" />
+    </DockPanel>
 </Window>

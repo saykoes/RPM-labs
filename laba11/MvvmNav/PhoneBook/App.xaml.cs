@@ -18,12 +18,21 @@ namespace PhoneBook
             base.OnStartup(e);
             var services = new ServiceCollection();
 
+            // Services
             services.AddSingleton<IDialogService, WPFDialogService>(); // DialogService doesn't store any info
-            services.AddTransient<MainViewModel>(); // ViewModel does store info and *in theory* we would want to have different copies of that
+            services.AddSingleton<INavigationService, NavigationService>();
+
+            // ViewModels
+            services.AddSingleton<ContactListViewModel>();
+            services.AddTransient<AboutViewModel>();
+            services.AddTransient<ContactEditViewModel>();
+            services.AddSingleton<MainWindowViewModel>();
+
+            // MainWindow
             services.AddSingleton<MainWindow>(sp => // We don't want multiple copies of MainWindow
             {   // Factory delegate (recipe)
                 var window = new MainWindow();
-                window.DataContext = sp.GetRequiredService<MainViewModel>(); // (Lazy) init of MainViewModel
+                window.DataContext = sp.GetRequiredService<MainWindowViewModel>(); // (Lazy) init of MainViewModel
                 return window;
             });
 
