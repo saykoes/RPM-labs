@@ -85,6 +85,9 @@ namespace PhoneBook.ViewModels
             FilteredContacts = new ObservableCollection<Contact>(filtered);
         }
 
+        public override void OnNavigatedTo(object? parameter) =>
+            ApplyFilter();
+
         private void AddContact()
         {
             Contact c = new Contact(0, Name, Phone);
@@ -124,8 +127,5 @@ namespace PhoneBook.ViewModels
             }
         }
         private bool CanEditContact() => SelectedContact is not null;
-
-        public override void OnNavigatedTo(object? parameter) =>
-            ApplyFilter();
     }
 }
