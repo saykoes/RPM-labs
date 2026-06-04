@@ -41,8 +41,14 @@ namespace PhoneBook.ViewModels
                 () => {
                     using (var context = contextFactory.CreateDbContext())
                     {
-                        context.Contacts.Update(_contact);
-                        context.SaveChanges();
+                        var contactToUpdate = context.Contacts.Find(_contact.Id);
+
+                        if (contactToUpdate != null)
+                        {
+                            contactToUpdate.Name = _contact.Name;
+                            contactToUpdate.Phone = _contact.Phone;
+                            context.SaveChanges();
+                        }
                         
                     }
                     _navigation.NavigateTo<ContactListViewModel>();

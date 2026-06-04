@@ -9,7 +9,7 @@
 ### Задание:
 Модернизировать приложение «Телефонная книга», исправив проблему времени жизни DbContext.
 
-As of now, DbContext service has a scoped lifetime, but it's bound to DI service provider which lives the entire application lifetime
+As of now, DbContext service has a scoped lifetime, but it's bound to Root Scope which lives the entire application lifetime
 
 We can use IDbContextFactory in order to control lifetime of DbContext inside our app manually
 
@@ -96,7 +96,7 @@ private void DeleteContact()
 }
 ```
 
-And in Edit, we need to link the edited Contact to the dbcontext
+And in Edit, we need to update the values for the tracked record
 
 ```csharp
 public ContactEditViewModel(INavigationService navigation, IDbContextFactory<PhoneBookDbSaiko2307b2Context> contextFactory) : base(navigation)
@@ -105,8 +105,15 @@ public ContactEditViewModel(INavigationService navigation, IDbContextFactory<Pho
         () => {
             using (var context = contextFactory.CreateDbContext())
             {
-                context.Contacts.Update(_contact); // here
-                context.SaveChanges();
+                var contactToUpdate = context.Contacts.Find(_contact.Id); // Find - we now track the object
+
+                if (contactToUpdate != null)
+                {
+                    // change the tracked object's fields
+                    contactToUpdate.Name = _contact.Name;
+                    contactToUpdate.Phone = _contact.Phone;
+                    context.SaveChanges(); // sync with db
+                }
                 
             }
             _navigation.NavigateTo<ContactListViewModel>();
@@ -115,3 +122,6 @@ public ContactEditViewModel(INavigationService navigation, IDbContextFactory<Pho
         () => _navigation.NavigateTo<ContactListViewModel>());
 }
 ```
+
+### Summary
+I've successfully remade my app so DbContext lifetime is now shorter and it is controlled manually via IDbContextFactory
