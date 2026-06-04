@@ -30,7 +30,7 @@ namespace PhoneBook
 
             // DbContext
             string? connectionString = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<PhoneBookDbSaiko2307b2Context>(options => options.UseSqlServer(connectionString));
+            services.AddDbContextFactory<PhoneBookDbSaiko2307b2Context>(options => options.UseSqlServer(connectionString));
 
             // Services
             services.AddSingleton<IDialogService, WPFDialogService>(); // DialogService doesn't store any info

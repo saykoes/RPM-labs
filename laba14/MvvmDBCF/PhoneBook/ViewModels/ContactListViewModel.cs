@@ -16,7 +16,7 @@ namespace PhoneBook.ViewModels
     public class ContactListViewModel : ViewModelBase
     {
         public ObservableCollection<Contact> Contacts { get; }
-        private readonly PhoneBookDbSaiko2307b2Context _context;
+        private readonly IDbContextFactory<PhoneBookDbSaiko2307b2Context> _contextFactory;
 
         private string _name = string.Empty;
         private string _phone = string.Empty;
@@ -56,11 +56,16 @@ namespace PhoneBook.ViewModels
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand EditCommand { get; }
-        public ContactListViewModel(IDialogService ds, INavigationService navigation, PhoneBookDbSaiko2307b2Context context) : base(navigation)
+        public ContactListViewModel(IDialogService ds, INavigationService navigation, IDbContextFactory<PhoneBookDbSaiko2307b2Context> contextFactory) : base(navigation)
         {
-            _context = context;
+            _contextFactory = contextFactory;
             _dialogService = ds;
-            Contacts = new ObservableCollection<Contact>((IEnumerable<Contact>)_context.Contacts.ToList());
+
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                Contacts = new ObservableCollection<Contact>((IEnumerable<Contact>)context.Contacts.ToList());
+            }
+
             FilteredContacts = new ObservableCollection<Contact>(Contacts);
 
             AddCommand = new RelayCommand(
@@ -99,8 +104,11 @@ namespace PhoneBook.ViewModels
                 }
                 else
                 {
-                    _context.Contacts.Add(c);
-                    _context.SaveChanges();
+                    using (var context = _contextFactory.CreateDbContext())
+                    {
+                        context.Contacts.Add(c);
+                        context.SaveChanges();
+                    }
                     Contacts.Add(c);
 
                     ApplyFilter();
@@ -118,8 +126,12 @@ namespace PhoneBook.ViewModels
             {
                 if (_dialogService.GetConfirm($"Delete contact {SelectedContact}?"))
                 {
-                    _context.Contacts.Remove(SelectedContact);
-                    _context.SaveChanges();
+                    using (var context = _contextFactory.CreateDbContext())
+                    {
+                        context.Contacts.Remove(SelectedContact);
+                        context.SaveChanges();
+                    }
+
                     Contacts.Remove(SelectedContact);
 
                     ApplyFilter();

@@ -1,4 +1,6 @@
-﻿using PhoneBook.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using PhoneBook.Core;
 using PhoneBook.Models;
 using PhoneBook.Services;
 using System;
@@ -33,12 +35,17 @@ namespace PhoneBook.ViewModels
         }
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
-        public ContactEditViewModel(INavigationService navigation, PhoneBookDbSaiko2307b2Context context) : base(navigation)
+        public ContactEditViewModel(INavigationService navigation, IDbContextFactory<PhoneBookDbSaiko2307b2Context> contextFactory) : base(navigation)
         {
             SaveCommand = new RelayCommand(
                 () => {
+                    using (var context = contextFactory.CreateDbContext())
+                    {
+                        context.Contacts.Update(_contact);
+                        context.SaveChanges();
+                        
+                    }
                     _navigation.NavigateTo<ContactListViewModel>();
-                    context.SaveChanges();
                 });
             CancelCommand = new RelayCommand(
                 () => _navigation.NavigateTo<ContactListViewModel>());
